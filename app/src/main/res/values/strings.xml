@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Image Gallery</string>
+    <string name="internet_error">Internet not connected</string>
+    <string name="unknown_error">An unknown error occured</string>
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="retry">Retry</string>
+</resources>
