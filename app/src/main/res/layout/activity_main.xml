@@ -34,37 +34,21 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/error_image_view"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:alpha="0.5"
-                android:src="@drawable/ic_sad"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.32"
-                app:tint="@color/darkGray"
-                tools:visibility="visible" />
-
             <TextView
                 android:id="@+id/error_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="8dp"
                 android:alpha="0.5"
                 android:gravity="center"
                 android:text="@string/internet_error"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="@+id/error_image_view"
-                app:layout_constraintStart_toStartOf="@+id/error_image_view"
-                app:layout_constraintTop_toBottomOf="@+id/error_image_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:visibility="visible" />
 
             <com.google.android.material.button.MaterialButton

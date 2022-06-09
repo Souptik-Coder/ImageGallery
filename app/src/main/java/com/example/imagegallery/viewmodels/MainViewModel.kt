@@ -15,19 +15,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
-    private val _photoResponse: MutableLiveData<NetworkResults<List<Photo>>> = MutableLiveData()
-    val photoResponse: LiveData<NetworkResults<List<Photo>>> = _photoResponse
-
-    init {
-        getPhotos()
-    }
-
-    private fun getPhotos() = viewModelScope.launch {
-        _photoResponse.value = NetworkResults.Loading()
-        _photoResponse.value = repository.getPhotos()
-    }
-
-    fun retryLoadPhotos() {
-        getPhotos()
-    }
+    /*private val _photoResponse: MutableLiveData<NetworkResults<List<Photo>>> = MutableLiveData()
+    val photoResponse: LiveData<NetworkResults<List<Photo>>> = _photoResponse*/
+    val photos=repository.getPhotos()
 }
