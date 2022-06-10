@@ -6,4 +6,7 @@
     <string name="nav_close">Close</string>
     <string name="retry">Retry</string>
     <string name="error_message">Couldn\'t load results please check your connection and try again</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search_hint">Type in your search query to see results</string>
 </resources>

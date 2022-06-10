@@ -2,17 +2,14 @@ package com.example.imagegallery.ui
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.NonNull
-import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.paging.LoadState
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.imagegallery.R
-import com.example.imagegallery.adapters.PhotoLoadStateAdapter
 import com.example.imagegallery.adapters.PhotoPagingAdapter
 import com.example.imagegallery.databinding.ActivityMainBinding
 import com.example.imagegallery.viewmodels.MainViewModel
@@ -28,48 +25,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        actionBarDrawerToggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            R.string.nav_open,
-            R.string.nav_close
+        setSupportActionBar(binding.toolbar)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.navigationView.setupWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(R.id.homeFragment, R.id.searchFragment),
+            drawerLayout = binding.drawerLayout
         )
-        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
-        actionBarDrawerToggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-
-        binding.recyclerView.apply {
-            val photoLayoutManager = GridLayoutManager(context, 2)
-            photoLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int =
-                    if (position == photosAdapter.itemCount) 2 else 1
-
-            }
-            layoutManager = photoLayoutManager
-            adapter = photosAdapter.withLoadStateHeaderAndFooter(
-                header = PhotoLoadStateAdapter { photosAdapter.retry() },
-                footer = PhotoLoadStateAdapter { photosAdapter.retry() }
-            )
-        }
-
-        binding.retryBtn.setOnClickListener {
-            photosAdapter.retry()
-        }
-        viewModel.photos.observe(this) { pagingData ->
-            photosAdapter.submitData(lifecycle, pagingData)
-        }
-        photosAdapter.addLoadStateListener { loadStates ->
-            binding.progressBar.isVisible = loadStates.source.refresh is LoadState.Loading
-            binding.errorTextView.isVisible = loadStates.source.refresh is LoadState.Error
-            binding.retryBtn.isVisible = loadStates.source.refresh is LoadState.Error
-        }
-    }
-
-    override fun onOptionsItemSelected(@NonNull item: MenuItem): Boolean {
-
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 }
